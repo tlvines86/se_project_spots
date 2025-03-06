@@ -8,6 +8,7 @@
   height: 190px;
   width: 190px;
   margin-right: 20px;
+  border-radius: 8px;
 }
 
 .profile__column {
@@ -31,6 +32,11 @@
 
 .profile__description {
   margin: 0;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  color: #212121;
+  opacity: 70%;
   text-overflow: ellipsis;
   overflow: hidden;
   line-clamp: 3;
@@ -42,10 +48,43 @@
 
 .profile__edit-btn {
   margin-top: auto;
+  height: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #212121;
+  opacity: 70%;
+  background-color: transparent;
+  border: none;
+  gap: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.profile__edit-btn:hover {
+  color: #212121;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .profile__add-btn {
   margin-left: auto;
+  height: 52px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  border-radius: 8px;
+  padding: 18px 32px 18px;
+  border: none;
+  background-color: #212121;
+  color: #fff;
+  gap: 8px;
+  align-self: flex-end;
+  display: flex;
+}
+
+.profile__add-btn:hover {
+  opacity: 30%;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 627px) {
@@ -78,8 +117,15 @@
     margin: 0 0 20px;
   }
 
+  .profile__edit-btn {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
+  }
+
   .profile__add-btn {
     margin: 0;
     width: 100%;
+    justify-content: center;
   }
 }

@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.footer__content {
+  height: 16px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 16px;
+  color: #212121;
+  opacity: 70%;
+}
