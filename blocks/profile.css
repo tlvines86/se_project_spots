@@ -1,7 +1,6 @@
 .profile {
   display: flex;
   padding: 34px 0 20px;
-  border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
 }
 
 .profile__avatar {
@@ -18,12 +17,12 @@
 
 .profile__name {
   margin: 0 0 12px;
+  color: #212121;
   font-weight: 500;
   font-size: 32px;
   line-height: 1;
   text-overflow: ellipsis;
   overflow: hidden;
-  line-clamp: 3;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -39,7 +38,6 @@
   opacity: 70%;
   text-overflow: ellipsis;
   overflow: hidden;
-  line-clamp: 3;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -58,11 +56,11 @@
   gap: 8px;
   display: flex;
   align-items: center;
+  line-height: 100%;
 }
 
 .profile__edit-btn:hover {
-  color: #212121;
-  font-weight: bold;
+  opacity: 1;
   cursor: pointer;
 }
 
@@ -76,14 +74,14 @@
   padding: 18px 32px 18px;
   border: none;
   background-color: #212121;
-  color: #fff;
+  color: #fcf5e5;
   gap: 8px;
   align-self: flex-end;
   display: flex;
 }
 
 .profile__add-btn:hover {
-  opacity: 30%;
+  opacity: 80%;
   cursor: pointer;
 }
 
