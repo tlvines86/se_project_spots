@@ -13,7 +13,5 @@
 @media screen and (max-width: 627px) {
   .page__section {
     max-width: 288px;
-    margin: 0 auto;
-    border-bottom: 1px rgba(33, 33, 33, 0.4) solid;
   }
 }
