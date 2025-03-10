@@ -78,6 +78,7 @@
   gap: 8px;
   align-self: flex-end;
   display: flex;
+  white-space: nowrap;
 }
 
 .profile__add-btn:hover {
