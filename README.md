@@ -21,3 +21,7 @@ The link below it to see the source material that this webpage was created with.
 **Deployemnt link**
 
 [Deployment Link](https://tlvines86.github.io/se_project_spots)
+
+**Video Description**
+
+[video link](https://www.loom.com/share/e70122a3588344c7b81e79d5724e5ca9?sid=38386cf8-f417-4a90-9004-6eafab1e4b6b)
