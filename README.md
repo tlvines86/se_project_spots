@@ -1,6 +1,6 @@
 # Project 3: Spots
 
-This project is about utilizing infromation from figma to create a responsive webpage design.
+This project is about utilizing infromation from figma to create a responsive webpage design, along with techniques such as BEM, grid, and flex box.
 
 ### Overview
 
