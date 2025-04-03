@@ -60,19 +60,26 @@
   margin-bottom: 32px;
   font-weight: 500;
   font-size: 16px;
-  opacity: 70%;
+  color: rgba(33, 33, 33, 0.7);
 }
 
 .modal__input {
   padding: 16px 12px;
   border-radius: 8px;
   color: #212121;
-  opacity: 40%;
   border-width: thin;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.modal__input::placeholder {
+  opacity: 0.4;
 }
 
 .modal__input:hover {
-  opacity: 1;
+  border-color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
 
