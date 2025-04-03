@@ -78,7 +78,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.3s;
 }
 
 .plus__icon {
@@ -87,7 +86,7 @@
 }
 
 .profile__add-btn:hover {
-  opacity: 80%;
+  background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
 }
 
