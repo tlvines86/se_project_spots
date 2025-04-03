@@ -76,12 +76,18 @@
   cursor: pointer;
 }
 
-.modal__submit-btn {
+.modal__save-btn {
   width: 156px;
   padding: 18px 0;
   color: #fff;
   background-color: #212121;
   border-radius: 8px;
+  transition: background 0.3s;
+}
+
+.modal__save-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  cursor: pointer;
 }
 
 @media screen and (max-width: 627px) {
