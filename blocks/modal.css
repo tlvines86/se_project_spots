@@ -31,6 +31,10 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  max-width: fit-content;
   gap: 8px;
   background-color: rgba(0, 0, 0, 0);
 }
@@ -84,8 +88,11 @@
   background: transparent url(../images/preview-close.svg) center no-repeat;
   top: 10px;
   right: -32px;
-  padding: 10px;
+  padding: 0;
   opacity: 1;
+  width: 40px;
+  height: 40px;
+  border: none;
 }
 
 .modal__close_image_preview:hover {
@@ -177,8 +184,16 @@
     justify-content: center;
   }
 
+  .modal__content_image_preview {
+    align-items: flex-start;
+  }
+
   .modal__close_image_preview {
-    top: -40px;
-    right: 0px;
+    top: -30px;
+    right: 70px;
+  }
+
+  .modal__caption {
+    align-self: flex-start;
   }
 }
