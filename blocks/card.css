@@ -26,17 +26,25 @@
 }
 
 .card__like-btn {
-  background-image: url(../images/heart.svg);
+  background: transparent url(../images/heart.svg) center no-repeat;
   width: 23px;
   height: 20px;
   border: none;
-  background-color: transparent;
-  opacity: 40%;
+  opacity: 0.4;
+  cursor: pointer;
 }
 
 .card__like-btn:hover {
   opacity: 1;
-  cursor: pointer;
+}
+
+.card__like-btn_liked {
+  background-image: url(../images/Liked.svg);
+  opacity: 1;
+}
+
+.card__like-btn_liked:hover {
+  background-image: url(../images/Liked-hover.svg);
 }
 
 @media screen and (max-width: 627px) {
