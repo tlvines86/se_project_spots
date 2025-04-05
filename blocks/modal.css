@@ -150,6 +150,7 @@
 
   .modal__content {
     padding: 12px;
+    max-width: 100%;
   }
 
   .modal__title {
@@ -168,6 +169,12 @@
 
   .modal__submit-btn {
     width: 100%;
+  }
+
+  .modal__save-btn {
+    margin: 0;
+    width: 100%;
+    justify-content: center;
   }
 
   .modal__close_image_preview {
