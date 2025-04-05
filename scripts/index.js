@@ -23,6 +23,10 @@ const initialCards = [
     name: "Mountain house",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
+  {
+    name: "Golden Gate bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+  },
 ];
 
 const profileEditButton = document.querySelector(".profile__edit-btn");
@@ -43,6 +47,12 @@ const cardForm = cardModal.querySelector(".modal__form");
 const cardModalCloseBtn = cardModal.querySelector(".modal__close-btn");
 const cardNameInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
+const previewModal = document.querySelector("#preview-modal");
+const previewModalImageEl = previewModal.querySelector(".modal__image");
+const previewModalCaptionEl = previewModal.querySelector(".modal__caption");
+const cardModalClosePreview = previewModal.querySelector(
+  ".modal__close_image_preview"
+);
 
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
@@ -62,6 +72,13 @@ function getCardElement(data) {
 
   cardLikeBtn.addEventListener("click", () => {
     cardLikeBtn.classList.toggle("card__like-btn_liked");
+  });
+
+  cardImageEl.addEventListener("click", () => {
+    openModal(previewModal);
+    previewModalCaptionEl.textContent = data.name;
+    previewModalImageEl.src = data.link;
+    previewModalImageEl.alt = data.name;
   });
 
   return getCardElement;
@@ -104,6 +121,10 @@ cardModalButton.addEventListener("click", () => {
 });
 cardModalCloseBtn.addEventListener("click", () => {
   closeModal(cardModal);
+});
+
+cardModalClosePreview.addEventListener("click", () => {
+  closeModal(previewModal);
 });
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
