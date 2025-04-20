@@ -122,6 +122,7 @@
 
 .modal__input {
   padding: 16px 12px;
+  margin: 8px 0 0;
   border-radius: 8px;
   color: #212121;
   border-width: thin;
@@ -140,6 +141,17 @@
   cursor: pointer;
 }
 
+.modal__input_type_error {
+  border: 1px solid rgba(255, 0, 0, 0.6);
+}
+
+.modal__error {
+  display: block;
+  color: #ff0000;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 .modal__save-btn {
   width: 156px;
   padding: 18px 0;
@@ -151,6 +163,11 @@
 .modal__save-btn:hover {
   background: rgba(0, 0, 0, 0.8);
   cursor: pointer;
+}
+
+.modal__save-btn-disabled {
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 @media screen and (max-width: 627px) {
