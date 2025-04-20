@@ -37,6 +37,8 @@ const editModal = document.querySelector("#edit-modal");
 const editFormElement = document.forms["edit-profile"];
 const editModalCloseBtn = editModal.querySelector(".modal__close-btn");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
+const modals = document.querySelectorAll(".modal");
+const openedModal = document.querySelector(".modal_opened");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
@@ -99,11 +101,31 @@ function closeModal(modal) {
   modal.classList.remove("modal_opened");
 }
 
+function handleOverlayClick(evt) {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(evt.target);
+  }
+}
+
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", handleOverlayClick);
+});
+
+function handleEscapeKey(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+}
+
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
   closeModal(editModal);
+  disableButton(cardSubmitBtn, settings);
 }
 
 function handleAddCardSubmit(evt) {
@@ -112,7 +134,7 @@ function handleAddCardSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   renderCard(inputValues);
   evt.target.reset();
-  console.log("test");
+  disableButton(cardSubmitBtn, settings);
   closeModal(cardModal);
 }
 
@@ -130,6 +152,8 @@ profileEditButton.addEventListener("click", () => {
 cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
+
+document.addEventListener("keydown", handleEscapeKey);
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
