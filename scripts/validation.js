@@ -27,7 +27,7 @@ const checkInputValidity = (formEl, inputEl, config) => {
   }
 };
 
-const hasInvalidInput = (inputList, config) => {
+const hasInvalidInput = (inputList) => {
   return inputList.some((input) => {
     return !input.validity.valid;
   });
@@ -40,6 +40,9 @@ const toggleButtonState = (inputList, buttonEl, config) => {
     buttonEl.disabled = false;
     buttonEl.classList.remove(config.inactiveButtonClass);
   }
+  formEl.addEventListener("reset", () => {
+    disableBtn(formSubmitBtn, config);
+  });
 };
 
 const disableButton = (buttonEl, config) => {

@@ -95,10 +95,12 @@ function getCardElement(data) {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey);
 }
 
 function handleOverlayClick(evt) {
