@@ -40,9 +40,6 @@ const toggleButtonState = (inputList, buttonEl, config) => {
     buttonEl.disabled = false;
     buttonEl.classList.remove(config.inactiveButtonClass);
   }
-  formEl.addEventListener("reset", () => {
-    disableBtn(formSubmitBtn, config);
-  });
 };
 
 const disableButton = (buttonEl, config) => {
@@ -55,6 +52,10 @@ const setEventListeners = (formEl, config) => {
   const buttonElement = formEl.querySelector(config.submitButtonSelector);
 
   toggleButtonState(inputList, buttonElement, config);
+
+  formEl.addEventListener("reset", () => {
+    disableBtn(formSubmitBtn, config);
+  });
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", function () {
