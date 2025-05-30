@@ -6,19 +6,19 @@
     <meta name="author" content="Troy Vines" />
     <meta name="description" content="Project Spots" />
     <meta name="keywords" content="Spots" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img src="./images/logo.svg" alt="Spots logo" class="header__logo" />
+        <img id="logo" src="" alt="Spots logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/avatar.jpg"
+            id="avatar"
+            src=""
             alt="Bessie Coleman"
             class="profile__avatar"
           />
@@ -27,16 +27,18 @@
             <p class="profile__description">Civil Aviator</p>
             <button type="button" class="profile__edit-btn">
               <img
+                id="editicon"
                 class="profile__edit-icon"
-                src="./images/pencil.svg"
+                src=""
                 alt="Pencil icon"
               />Edit Profile
             </button>
           </div>
           <button type="button" class="profile__add-btn">
             <img
+              id="plusicon"
               class="profile__plus-icon"
-              src="./images/plus-icon.svg"
+              src=""
               alt="Plus icon"
             />New Post
           </button>
@@ -143,7 +145,5 @@
         <p class="modal__caption"></p>
       </div>
     </div>
-    <script defer src="./scripts/index.js"></script>
-    <script defer src="./scripts/validation.js"></script>
   </body>
 </html>

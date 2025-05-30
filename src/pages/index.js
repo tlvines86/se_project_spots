@@ -1,3 +1,10 @@
+import logo from "../images/logo.svg";
+import avatar from "../images/avatar.jpg";
+import editicon from "../images/pencil.svg";
+import plusicon from "../images/plus-icon.svg";
+import "./index.css";
+import { enableValidation, settings } from "../scripts/validation.js";
+
 const initialCards = [
   {
     name: "Val Thorens",
@@ -60,6 +67,16 @@ const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
 const closeButtons = document.querySelectorAll(".modal__close-btn");
+
+const logoImg = document.getElementById("logo");
+const avatarImg = document.getElementById("avatar");
+const editIconImg = document.getElementById("editicon");
+const plusIconImg = document.getElementById("plusicon");
+
+logoImg.src = logo;
+avatarImg.src = avatar;
+editIconImg.src = editicon;
+plusIconImg.src = plusicon;
 
 function getCardElement(data) {
   const getCardElement = cardTemplate.content
@@ -168,3 +185,5 @@ closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
   button.addEventListener("click", () => closeModal(popup));
 });
+
+enableValidation(settings);
