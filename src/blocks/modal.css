@@ -21,6 +21,7 @@
 }
 
 .modal__content {
+  font-family: "Poppins", sans-serif;
   background: #fff;
   padding: 32px 50px;
   max-width: 730px;
@@ -52,7 +53,6 @@
 }
 
 .modal__caption {
-  font-family: "Poppins", sans-serif;
   background-color: #212121;
   color: #fff;
   font-weight: 500;
@@ -170,6 +170,44 @@
   pointer-events: none;
 }
 
+#delete-modal .modal__content {
+  max-width: 630px;
+}
+
+#delete-modal .modal__form {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+#delete-modal .modal__close-btn {
+  right: -40px;
+  top: -5px;
+}
+
+#delete-modal .modal__title {
+  font-size: 24px;
+}
+
+.modal__save-btn--delete {
+  color: #212121;
+  background-color: #ff6565;
+}
+
+.modal__save-btn--delete:hover {
+  background-color: #ff6565;
+}
+
+.modal__save-btn--cancel {
+  color: #212121;
+  background-color: white;
+}
+
+.modal__save-btn--cancel:hover {
+  color: white;
+  background-color: #212121;
+}
+
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;
@@ -213,5 +251,27 @@
     top: -30px;
     right: 0px;
     position: absolute;
+  }
+
+  #delete-modal .modal__content .modal__form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #delete-modal .modal__title {
+    text-align: center;
+  }
+
+  #delete-modal .modal__close-btn {
+    right: 0px;
+    top: -40px;
+  }
+
+  .modal__save-btn--delete {
+    width: 156px;
+  }
+
+  .modal__save-btn--cancel {
+    width: 156px;
   }
 }
