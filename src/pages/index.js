@@ -92,6 +92,7 @@ const avatarModalCloseBtn = avatarModal.querySelector(".modal__close-btn");
 const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 
 const deleteModal = document.querySelector("#delete-modal");
+const deleteForm = deleteModal.querySelector(".modal__form");
 
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
@@ -108,28 +109,30 @@ avatarImg.src = avatar;
 editIconImg.src = editicon;
 plusIconImg.src = plusicon;
 
+let selectedCard, SelectedCardId;
+
 function getCardElement(data) {
-  const getCardElement = cardTemplate.content
+  const cardElement = cardTemplate.content
     .querySelector(".card")
     .cloneNode(true);
-
-  const cardNameEl = getCardElement.querySelector(".card__title");
-  const cardImageEl = getCardElement.querySelector(".card__image");
-  const cardLikeBtn = getCardElement.querySelector(".card__like-btn");
-  const deleteBtn = getCardElement.querySelector(".card__delete-btn");
+  const cardNameEl = cardElement.querySelector(".card__title");
+  const cardImageEl = cardElement.querySelector(".card__image");
+  const cardLikeBtn = cardElement.querySelector(".card__like-btn");
+  const deleteBtn = cardElement.querySelector(".card__delete-btn");
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = data.name;
 
-  cardLikeBtn.addEventListener("click", () => {
-    cardLikeBtn.classList.toggle("card__like-btn_liked");
+  modals.forEach((modal) => {
+    modal.addEventListener("mousedown", handleOverlayClick);
   });
 
-  deleteBtn.addEventListener("click", () => {
-    openModal(deleteModal);
-    // getCardElement.remove();
-  });
+  cardLikeBtn.addEventListener("click", (evt) => handleLikeBtn(evt, data._id));
+
+  deleteBtn.addEventListener("click", () =>
+    handleDeleteCard(cardElement, data._id)
+  );
 
   cardImageEl.addEventListener("click", () => {
     openModal(previewModal);
@@ -138,36 +141,7 @@ function getCardElement(data) {
     previewModalImageEl.alt = data.name;
   });
 
-  return getCardElement;
-}
-
-function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", handleEscapeKey);
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.addEventListener("keydown", handleEscapeKey);
-}
-
-function handleOverlayClick(evt) {
-  if (evt.target.classList.contains("modal")) {
-    closeModal(evt.target);
-  }
-}
-
-modals.forEach((modal) => {
-  modal.addEventListener("mousedown", handleOverlayClick);
-});
-
-function handleEscapeKey(evt) {
-  if (evt.key === "Escape") {
-    const openedModal = document.querySelector(".modal_opened");
-    if (openedModal) {
-      closeModal(openedModal);
-    }
-  }
+  return cardElement;
 }
 
 function handleAvatarSubmit(evt) {
@@ -200,19 +174,74 @@ function handleEditFormSubmit(evt) {
     .catch(console.error);
 }
 
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  api
+    .deleteCard(SelectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error);
+}
+
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  const inputValues = { name: cardNameInput.value, link: cardLinkInput.value };
-  const cardElement = getCardElement(inputValues);
-  renderCard(inputValues);
-  evt.target.reset();
-  disableButton(cardSubmitBtn, settings);
-  closeModal(cardModal);
+  api
+    .addNewCard({
+      name: cardNameInput.value,
+      link: cardLinkInput.value,
+    })
+    .then((data) => {
+      renderCard(data, "append");
+      closeModal(editModal);
+      disableButton(cardSubmitBtn, settings);
+    })
+    .catch(console.error);
+}
+
+function handleDeleteCard(cardElement, cardId) {
+  selectedCard = cardElement;
+  SelectedCardId = cardId;
+  openModal(deleteModal);
 }
 
 function renderCard(item, method = "prepend") {
   const cardElement = getCardElement(item);
   cardsList[method](cardElement);
+}
+
+function handleEscapeKey(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    if (openedModal) {
+      closeModal(openedModal);
+    }
+  }
+}
+
+function handleLikeBtn(evt, id) {
+  const isLiked = evt.target.classList.contains("card__like-btn_liked");
+  api
+    .cardLikeStatus(id, isLiked)
+    .then(evt.target.classList.toggle("card__like-btn_liked"))
+    .catch(console.error);
+}
+
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey);
+}
+
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.addEventListener("keydown", handleEscapeKey);
+}
+
+function handleOverlayClick(evt) {
+  if (evt.target.classList.contains("modal")) {
+    closeModal(evt.target);
+  }
 }
 
 profileEditButton.addEventListener("click", () => {
@@ -234,6 +263,7 @@ document.addEventListener("keydown", handleEscapeKey);
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 avatarForm.addEventListener("submit", handleAvatarSubmit);
+deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
