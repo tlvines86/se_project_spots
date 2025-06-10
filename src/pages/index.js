@@ -11,37 +11,6 @@ import {
 import { setButtonText } from "../utils/helpers.js";
 import Api from "../utils/Api.js";
 
-const initialCards = [
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Golden Gate bridge",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
-  },
-];
-
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -55,8 +24,12 @@ api
   .then(([cards, user]) => {
     profileName.textContent = user.name;
     profileDescription.textContent = user.about;
-    avatarImg.src = user.avatarUrl || avatar;
-    initialCards.forEach((item) => {
+    if (user.avatar.includes("placeholder")) {
+      avatarImg.src = avatar;
+    } else {
+      avatarImg.src = user.avatar;
+    }
+    cards.forEach((item) => {
       renderCard(item, "append");
     });
   })
@@ -103,6 +76,7 @@ const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
 const closeButtons = document.querySelectorAll(".modal__close-btn");
+const cancelButton = document.querySelector(".modal__save-btn--cancel");
 
 const logoImg = document.getElementById("logo");
 const avatarImg = document.getElementById("avatar");
@@ -110,11 +84,10 @@ const editIconImg = document.getElementById("editicon");
 const plusIconImg = document.getElementById("plusicon");
 
 logoImg.src = logo;
-avatarImg.src = avatar;
 editIconImg.src = editicon;
 plusIconImg.src = plusicon;
 
-let selectedCard, SelectedCardId;
+let selectedCard, selectedCardId;
 
 function getCardElement(data) {
   const cardElement = cardTemplate.content
@@ -123,15 +96,14 @@ function getCardElement(data) {
   const cardNameEl = cardElement.querySelector(".card__title");
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
+  if (data.isLiked) {
+    cardLikeBtn.classList.add("card__like-btn_liked");
+  }
   const deleteBtn = cardElement.querySelector(".card__delete-btn");
 
   cardNameEl.textContent = data.name;
   cardImageEl.src = data.link;
   cardImageEl.alt = data.name;
-
-  modals.forEach((modal) => {
-    modal.addEventListener("mousedown", handleOverlayClick);
-  });
 
   cardLikeBtn.addEventListener("click", (evt) => handleLikeBtn(evt, data._id));
 
@@ -162,6 +134,7 @@ function handleAvatarSubmit(evt) {
     .then((data) => {
       avatarImg.src = data.avatar;
       closeModal(avatarModal);
+      cardForm.reset();
       disableButton(avatarSubmitBtn, settings);
     })
     .catch(console.error)
@@ -200,7 +173,7 @@ function handleDeleteSubmit(evt) {
   setButtonText(deleteBtn, true, "Delete", "Deleting...");
 
   api
-    .deleteCard(SelectedCardId)
+    .deleteCard(selectedCardId)
     .then(() => {
       selectedCard.remove();
       closeModal(deleteModal);
@@ -236,7 +209,7 @@ function handleAddCardSubmit(evt) {
 
 function handleDeleteCard(cardElement, cardId) {
   selectedCard = cardElement;
-  SelectedCardId = cardId;
+  selectedCardId = cardId;
   openModal(deleteModal);
 }
 
@@ -278,6 +251,10 @@ function handleOverlayClick(evt) {
   }
 }
 
+modals.forEach((modal) => {
+  modal.addEventListener("mousedown", handleOverlayClick);
+});
+
 profileEditButton.addEventListener("click", () => {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
@@ -298,6 +275,9 @@ editFormElement.addEventListener("submit", handleEditFormSubmit);
 cardForm.addEventListener("submit", handleAddCardSubmit);
 avatarForm.addEventListener("submit", handleAvatarSubmit);
 deleteForm.addEventListener("submit", handleDeleteSubmit);
+cancelButton.addEventListener("click", () => {
+  closeModal(deleteModal);
+});
 
 closeButtons.forEach((button) => {
   const popup = button.closest(".modal");
