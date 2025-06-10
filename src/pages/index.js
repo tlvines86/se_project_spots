@@ -134,7 +134,7 @@ function handleAvatarSubmit(evt) {
     .then((data) => {
       avatarImg.src = data.avatar;
       closeModal(avatarModal);
-      cardForm.reset();
+      avatarForm.reset();
       disableButton(avatarSubmitBtn, settings);
     })
     .catch(console.error)
